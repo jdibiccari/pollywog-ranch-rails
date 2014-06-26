@@ -15,27 +15,16 @@ class TadpolesController < ApplicationController
 
   def create
     @tadpole = Tadpole.new(tadpole_params)
-    respond_to do |format|
-      if @tadpole.save(tadpole_params)
-        format.html { redirect_to @tadpole, notice: 'Tadpole was successfully created.' }
-        format.json { render :show, status: :ok, location: @tadpole }
-      else
-        format.html { render :edit }
-        format.json { render json: @tadpole.errors, status: :unprocessable_entity }
-      end
+    @frog = @tadpole.frog
+    if @tadpole.save
+      redirect_to tadpoles_path
+    else
+      redirect_to new_frog_tadpole_path(@frog)
     end
   end
 
   def update
-    respond_to do |format|
-      if @tadpole.update(tadpole_params)
-        format.html { redirect_to @tadpole, notice: 'Tadpole was successfully updated.' }
-        format.json { render :show, status: :ok, location: @tadpole }
-      else
-        format.html { render :edit }
-        format.json { render json: @tadpole.errors, status: :unprocessable_entity }
-      end
-    end
+    @tadpole.update(tadpole_params)
   end
 
   def evolve

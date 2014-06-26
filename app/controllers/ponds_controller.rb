@@ -16,27 +16,16 @@ class PondsController < ApplicationController
 
   def create
     @pond = Pond.new(pond_params)
-    respond_to do |format|
-      if @pond.save(pond_params)
-        format.html { redirect_to @pond, notice: 'Pond was successfully created.' }
-        format.json { render :show, status: :ok, location: @pond }
-      else
-        format.html { render :edit }
-        format.json { render json: @pond.errors, status: :unprocessable_entity }
-      end
+    if @pond.save
+      redirect_to ponds_path
+    else
+      redirect_to new_pond_path
     end
   end
 
   def update
-    respond_to do |format|
-      if @pond.update(pond_params)
-        format.html { redirect_to @pond, notice: 'Pond was successfully updated.' }
-        format.json { render :show, status: :ok, location: @pond }
-      else
-        format.html { render :edit }
-        format.json { render json: @pond.errors, status: :unprocessable_entity }
-      end
-    end
+    @pond.update(pond_params)
+    redirect_to @pond
   end
 
   def destroy

@@ -18,26 +18,16 @@ class FrogsController < ApplicationController
 
   def create
     @frog = Frog.new(frog_params)
-    respond_to do |format|
-      if @frog.save(frog_params)
-        format.html { redirect_to @frog, notice: 'Frog was successfully created.' }
-      else
-        format.html { render :new }
-        format.json { render json: @frog.errors, status: :unprocessable_entity }
-      end
+    if @frog.save
+      redirect_to frogs_path
+    else
+      redirect_to new_frog_path
     end
   end
 
   def update
-    respond_to do |format|
-      if @frog.update(frog_params)
-        format.html { redirect_to @frog, notice: 'Frog was successfully updated.' }
-        format.json { render :show, status: :ok, location: @frog }
-      else
-        format.html { render :edit }
-        format.json { render json: @frog.errors, status: :unprocessable_entity }
-      end
-    end
+    @frog.update(frog_params)
+    redirect_to @frog
   end
 
   def destroy
