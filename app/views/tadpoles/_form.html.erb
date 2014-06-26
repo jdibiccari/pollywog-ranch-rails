@@ -6,7 +6,9 @@
 </ul>
 <%end%>
 
-<%= form_for(@tadpole) do |f|%>
+<!-- This gives me frogs/:id/tadpoles/:id when updating
+    and frogs/:id/tadpoles when creating -->
+<%= form_for [@frog, @tadpole] do |f|%>
   <%=f.label :name %>
   <%=f.text_field :name %><br>
   <%if params[:action] == "edit"%>
