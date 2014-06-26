@@ -1,1 +1,8 @@
-_form.html.erb
+<%= form_for(@frog) do |f|%>
+  <%=f.label :name %>
+  <%=f.text_field :name %><br>
+  <%=f.label :color %>
+  <%=f.text_field :color %><br>
+  <%=f.select :pond_id, options_for_select(@ponds.map{|pond| [pond.name, pond.id]})%>
+  <%=f.submit %>
+<% end %>
