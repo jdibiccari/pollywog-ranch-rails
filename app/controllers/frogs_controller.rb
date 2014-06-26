@@ -21,9 +21,8 @@ class FrogsController < ApplicationController
     respond_to do |format|
       if @frog.save(frog_params)
         format.html { redirect_to @frog, notice: 'Frog was successfully created.' }
-        format.json { render :show, status: :ok, location: @frog }
       else
-        format.html { render :edit }
+        format.html { render :new }
         format.json { render json: @frog.errors, status: :unprocessable_entity }
       end
     end
