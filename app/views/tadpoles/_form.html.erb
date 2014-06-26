@@ -1,7 +1,12 @@
 <%= form_for(@tadpole) do |f|%>
   <%=f.label :name %>
   <%=f.text_field :name %><br>
-  <%=f.hidden_field :color, value: @frog.color%>
-  <%=f.hidden_field :frog_id, value: @frog.id%><br>
+  <%if params[:action] == "edit"%>
+    <%=f.label :color %>
+    <%=f.text_field :color %><br>
+  <%else%>
+    <%=f.hidden_field :color, value: @frog.color%>
+    <%=f.hidden_field :frog_id, value: @frog.id%><br>
+  <%end%>
   <%=f.submit %>
 <% end %>
