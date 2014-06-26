@@ -19,12 +19,18 @@ class TadpolesController < ApplicationController
     if @tadpole.save
       redirect_to tadpoles_path
     else
-      redirect_to new_frog_tadpole_path(@frog)
+      # redirect_to new_frog_tadpole_path(@frog)
+      render "new"
     end
   end
 
   def update
-    @tadpole.update(tadpole_params)
+    @frog = @tadpole.frog
+    if @tadpole.update(tadpole_params)
+      redirect_to @tadpole
+    else
+      render "edit"
+    end
   end
 
   def evolve

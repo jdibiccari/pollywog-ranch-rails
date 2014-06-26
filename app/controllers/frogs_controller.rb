@@ -1,16 +1,15 @@
 class FrogsController < ApplicationController
  before_action :set_frog, only: [:show, :edit, :update, :destroy]
+ before_action :set_ponds, only: [:edit, :create, :update, :new]
   def index
     @frogs = Frog.all
   end
 
   def new
-    @ponds = Pond.all
     @frog = Frog.new
   end
 
   def edit
-    @ponds = Pond.all
   end
 
   def show
@@ -21,13 +20,16 @@ class FrogsController < ApplicationController
     if @frog.save
       redirect_to frogs_path
     else
-      redirect_to new_frog_path
+      render "new"
     end
   end
 
   def update
-    @frog.update(frog_params)
-    redirect_to @frog
+    if @frog.update(frog_params)
+      redirect_to @frog
+    else
+      render "edit"
+    end
   end
 
   def destroy
@@ -38,6 +40,10 @@ class FrogsController < ApplicationController
   private
   def set_frog
     @frog = Frog.find(params[:id])
+  end
+
+  def set_ponds
+    @ponds = Pond.all
   end
 
   def frog_params

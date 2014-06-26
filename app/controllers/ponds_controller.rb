@@ -19,13 +19,16 @@ class PondsController < ApplicationController
     if @pond.save
       redirect_to ponds_path
     else
-      redirect_to new_pond_path
+      render "new"
     end
   end
 
   def update
-    @pond.update(pond_params)
-    redirect_to @pond
+    if @pond.update(pond_params)
+      redirect_to @pond
+    else
+      render "edit"
+    end
   end
 
   def destroy

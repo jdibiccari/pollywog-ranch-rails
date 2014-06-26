@@ -1,3 +1,11 @@
+<%if @tadpole.errors.any?%>
+<ul id="errors">
+  <%@tadpole.errors.full_messages.each do |message|%>
+    <li><%=message%></li>
+  <%end%>
+</ul>
+<%end%>
+
 <%= form_for(@tadpole) do |f|%>
   <%=f.label :name %>
   <%=f.text_field :name %><br>

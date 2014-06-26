@@ -1,3 +1,10 @@
+<%if @pond.errors.any?%>
+<ul id="errors">
+  <%@pond.errors.full_messages.each do |message|%>
+    <li><%=message%></li>
+  <%end%>
+</ul>
+<%end%>
 <%= form_for(@pond) do |f|%>
   <%=f.label :name %>
   <%=f.text_field :name %><br>
